@@ -1,4 +1,4 @@
-int cFondo, cFichas, jugador, colocadas;
+int cFondo, cFichas, jugador, colocadas, a, c;
 boolean FIN;
 Ficha[] fichas = new Ficha[9];
 
@@ -30,6 +30,11 @@ void draw() {
   for (int i = 0; i<9; i++) {
     fichas[i].dibuja();
   }
+  if (FIN) {
+    strokeWeight(10);
+    stroke(cFichas);
+    line(fichas[a].x, fichas[a].y, fichas[c].x, fichas[c].y);
+  }
 }
 
 void mousePressed() {
@@ -39,6 +44,11 @@ void mousePressed() {
     jugador = (jugador == 1)? 2: 1;
     colocadas ++;
     FIN = check();
+    if (colocadas == 9 || FIN) {
+      jugador = 1;
+      cFondo = 255;
+      cFichas = 0;
+    }
   } 
   else background(cFichas);
 }
@@ -49,8 +59,14 @@ boolean check() {
 }
 
 boolean enLinea (int a, int b, int c) {
-  return (fichas[a].tipo != 0 && fichas[a].tipo == fichas[b].tipo && 
-    fichas[b].tipo == fichas[c].tipo);
+  if (fichas[a].tipo != 0 && fichas[a].tipo == fichas[b].tipo && 
+    fichas[b].tipo == fichas[c].tipo) {
+    this.a = a;
+    this.c = c;
+    return true;
+  } 
+  else 
+    return false;
 }
 
 class Ficha {
