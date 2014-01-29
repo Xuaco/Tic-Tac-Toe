@@ -1,4 +1,5 @@
-int cFondo, cFichas, jugador;
+int cFondo, cFichas, jugador, colocadas;
+boolean FIN;
 Ficha[] fichas = new Ficha[9];
 
 void setup() {
@@ -14,6 +15,8 @@ void inicia() {
   cFichas = 255;
   frameRate(10);
   jugador = 1;
+  colocadas = 0;
+  FIN = false;
 }
 
 void draw() {
@@ -30,10 +33,24 @@ void draw() {
 }
 
 void mousePressed() {
-  if (fichas[(mouseX / 100) + (mouseY / 100) * 3].setTipo(jugador)) {
+  if (colocadas == 9 || FIN)
+    inicia();
+  else if (fichas[(mouseX / 100) + (mouseY / 100) * 3].setTipo(jugador)) {
     jugador = (jugador == 1)? 2: 1;
+    colocadas ++;
+    FIN = check();
   } 
   else background(cFichas);
+}
+
+boolean check() {
+  return (enLinea(0, 1, 2) || enLinea(3, 4, 5) || enLinea(6, 7, 8) || enLinea(0, 3, 6) || 
+    enLinea(1, 4, 7) || enLinea(2, 5, 8) || enLinea(0, 4, 8) || enLinea(2, 4, 6));
+}
+
+boolean enLinea (int a, int b, int c) {
+  return (fichas[a].tipo != 0 && fichas[a].tipo == fichas[b].tipo && 
+    fichas[b].tipo == fichas[c].tipo);
 }
 
 class Ficha {
