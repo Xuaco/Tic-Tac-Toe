@@ -1,4 +1,4 @@
-int cFondo, cFichas;
+int cFondo, cFichas, jugador;
 Ficha[] fichas = new Ficha[9];
 
 void setup() {
@@ -12,6 +12,8 @@ void inicia() {
   }
   cFondo = 0;
   cFichas = 255;
+  frameRate(10);
+  jugador = 1;
 }
 
 void draw() {
@@ -28,7 +30,10 @@ void draw() {
 }
 
 void mousePressed() {
-  fichas[4].setTipo((mouseX/100)%3);
+  if (fichas[(mouseX / 100) + (mouseY / 100) * 3].setTipo(jugador)) {
+    jugador = (jugador == 1)? 2: 1;
+  } 
+  else background(cFichas);
 }
 
 class Ficha {
@@ -59,8 +64,12 @@ class Ficha {
       break;
     }
   }
-  void setTipo(int tipo) {
-    this.tipo = tipo;
+  boolean setTipo(int tipo) {
+    if (this.tipo == 0) {
+      this.tipo = tipo;
+      return true;
+    }
+    else return false;
   }
 }
 
