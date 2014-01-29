@@ -1,10 +1,17 @@
-int cFondo = 0, cFichas = 255;
-Ficha fichaA, fichaB; 
+int cFondo, cFichas;
+Ficha[] fichas = new Ficha[9];
 
 void setup() {
   size(300, 300);
-  fichaA = new Ficha(50, 50, 1);
-  fichaB = new Ficha(150, 50, 2);
+  inicia();
+}
+
+void inicia() {
+  for (int i = 0; i<9; i++) {
+    fichas[i] = new Ficha(i, i%3);
+  }
+  cFondo = 0;
+  cFichas = 255;
 }
 
 void draw() {
@@ -15,15 +22,17 @@ void draw() {
   line(0, 200, 300, 200);
   line(100, 0, 100, 300);
   line(200, 0, 200, 300);
-  fichaA.dibuja();
-  fichaB.dibuja();
+  for (int i = 0; i<9; i++) {
+    fichas[i].dibuja();
+  }
 }
 
 class Ficha {
-  int x, y, tipo;
-  Ficha(int x, int y, int tipo) {
-    this.x = x;
-    this.y = y;
+  int posicion, x, y, tipo;
+  Ficha(int posicion, int tipo) {
+    this.posicion = posicion;
+    this.x = (posicion % 3) * 100 + 50;
+    this.y = (posicion / 3) * 100 + 50;
     this.tipo = tipo;
   }
   void dibuja() {
