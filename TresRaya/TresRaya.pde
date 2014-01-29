@@ -8,7 +8,7 @@ void setup() {
 
 void inicia() {
   for (int i = 0; i<9; i++) {
-    fichas[i] = new Ficha(i, i%3);
+    fichas[i] = new Ficha(i, 0);
   }
   cFondo = 0;
   cFichas = 255;
@@ -25,6 +25,10 @@ void draw() {
   for (int i = 0; i<9; i++) {
     fichas[i].dibuja();
   }
+}
+
+void mousePressed() {
+  fichas[4].setTipo((mouseX/100)%3);
 }
 
 class Ficha {
@@ -55,4 +59,8 @@ class Ficha {
       break;
     }
   }
+  void setTipo(int tipo) {
+    this.tipo = tipo;
+  }
 }
+
