@@ -46,11 +46,14 @@ void mousePressed() {
   else if (fichas[(mouseX / 100) + (mouseY / 100) * 3].setTipo(jugador)) {
     jugador = (jugador == 1)? 2: 1;
     colocadas ++;
-    mov = movimiento();
-    fichas[mov].setTipo(jugador);
-    jugador = (jugador ==1)? 2: 1;
-    colocadas ++;
     FIN = check();
+    if (colocadas < 9 && !FIN) {
+      mov = movimiento();
+      fichas[mov].setTipo(jugador);
+      jugador = (jugador ==1)? 2: 1;
+      colocadas ++;
+      FIN = check();
+    }
     if (colocadas == 9 || FIN) {
       jugador = 1;
       cFondo = 255;
@@ -115,10 +118,9 @@ class Ficha {
 }
 
 int movimiento() {
-  int posicion = 0, aux, resultado = -9, j, random = 0;
-  if (colocadas == 9 || check2()) return 0;
+  int posicion = 0, aux, resultado = -9, j, random = (int)random(9);
   for (int i=0; i<9 ; i++) {
-    j = i;
+    j = (random + i)%9;
     if (minimax[j] == 0) {
       minimax[j]=2;
       aux = Min();
@@ -136,7 +138,7 @@ int Min() {
   if (check2()) return 1;
   if (colocadas()) return 0;
   int resultado = 9, aux;
-  for (int i=1;i<9; i++) {
+  for (int i=0;i<9; i++) {
     if (minimax[i] == 0) {
       minimax[i] = 1;
       aux = Max();
@@ -152,7 +154,7 @@ int Max() {
   if (check2()) return -1;
   if (colocadas()) return 0;
   int resultado = -9, aux;
-  for (int i=1;i<9; i++) {
+  for (int i=0;i<9; i++) {
     if (minimax[i] == 0) {
       minimax[i] = 2;
       aux = Min();
@@ -167,7 +169,7 @@ int Max() {
 boolean colocadas() {
   boolean resultado = true;
   for (int i = 0; i<9 && resultado; i++) {
-    if (minimax[i] != 0) resultado = false;
+    if (minimax[i] == 0) resultado = false;
   }
   return resultado;
 }
@@ -185,3 +187,4 @@ boolean enLinea2 (int a, int b, int c) {
   else 
     return false;
 }
+
