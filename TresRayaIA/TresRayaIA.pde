@@ -7,8 +7,6 @@ int [] minimax = new int[9];
 void setup() {
   size(300, 300);
   inicia();
-  int i=9*8*7*6*5*4*3*2;
-  print(i);
 }
 
 void inicia() {
@@ -117,16 +115,16 @@ class Ficha {
 }
 
 int movimiento() {
-  int posicion = 0, resultado = -9, random = (int)random(9);
+  int posicion = 0, aux, resultado = -9, j, random = (int)random(9);
   FIN = check();
-  
+
   if (colocadas() || FIN) return 0;
   for (int i=0; i<9 ; i++) {
     j = (random + i) %9;
     if (minimax[j] == 0) {
       minimax[j]=2;
       aux = Min();
-      if (resultado < aux) {
+      if (aux > resultado) {
         resultado = aux;
         posicion = j;
       }
@@ -137,31 +135,55 @@ int movimiento() {
 }
 
 int Min() {
-  if (check()) return 1;
-  if (colocadas == 9) return 0;
-  int resultado = 9;
-  for (int i=0; i<9; i++) {
-    if (fichas[i].tipo == 0)
-      resultado = Max();
+  if (check2()) return 1;
+  if (colocadas()) return 0;
+  int resultado = 9, aux;
+  for (int i=1;i<9; i++) {
+    if (minimax[i] == 0) {
+      minimax[i] = 1;
+      aux = Max();
+      if (aux < resultado)
+        resultado = aux;
+      minimax[i] = 0;
+    }
   }
   return resultado;
 }
 
 int Max() {
-  if (check()) return -1;
+  if (check2()) return -1;
   if (colocadas()) return 0;
-  int resultado = -9;
+  int resultado = -9, aux;
   for (int i=1;i<9; i++) {
-    if (fichas[i].tipo == 0)
-      resultado = Min();
+    if (minimax[i] == 0) {
+      minimax[i] = 2;
+      aux = Min();
+      if (aux > resultado)
+        resultado = aux;
+      minimax[i] = 0;
+    }
   }
   return resultado;
 }
 
 boolean colocadas() {
   boolean resultado = true;
-  for (int i = 0; i<9 && resultado; i++){
-    if (minimax[i] != 0) resutaldo = false;
+  for (int i = 0; i<9 && resultado; i++) {
+    if (minimax[i] != 0) resultado = false;
   }
   return resultado;
+}
+
+boolean check2() {
+  return (enLinea2(0, 1, 2) || enLinea2(3, 4, 5) || enLinea2(6, 7, 8) || enLinea2(0, 3, 6) || 
+    enLinea2(1, 4, 7) || enLinea2(2, 5, 8) || enLinea2(0, 4, 8) || enLinea2(2, 4, 6));
+}
+
+boolean enLinea2 (int a, int b, int c) {
+  if (minimax[a] != 0 && minimax[a] == minimax[b] && 
+    minimax[b] == minimax[c]) {
+    return true;
+  } 
+  else 
+    return false;
 }
