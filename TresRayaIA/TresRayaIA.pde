@@ -115,12 +115,10 @@ class Ficha {
 }
 
 int movimiento() {
-  int posicion = 0, aux, resultado = -9, j, random = (int)random(9);
-  FIN = check();
-
-  if (colocadas() || FIN) return 0;
+  int posicion = 0, aux, resultado = -9, j, random = 0;
+  if (colocadas == 9 || check2()) return 0;
   for (int i=0; i<9 ; i++) {
-    j = (random + i) %9;
+    j = i;
     if (minimax[j] == 0) {
       minimax[j]=2;
       aux = Min();
