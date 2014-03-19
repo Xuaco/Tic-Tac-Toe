@@ -121,9 +121,14 @@ int movimiento() {
   FIN = check();
   if (colocadas == 9 || FIN) return 0;
   for (int i=0; i<9 ; i++) {
-    if (fichas[i].tipo == 0) 
-      posicion = i;
-      //resultado = Min();
+    if (minimax[i] == 0) {
+      minimax[i]=2;
+      aux = Min();
+      if (resultado < aux) {
+        resultado = aux;
+        posicion = i;
+      }
+    }
   }
   return posicion;
 }
@@ -140,13 +145,13 @@ int Min() {
 }
 
 int Max() {
-    if (check()) return -1;
-    if (colocadas == 9) return 0;
-    int resultado = -9;
-    for (int i=1;i<9; i++) {
-      if (fichas[i].tipo == 0)
-         resultado = Min();
-    }
-    return resultado;
+  if (check()) return -1;
+  if (colocadas == 9) return 0;
+  int resultado = -9;
+  for (int i=1;i<9; i++) {
+    if (fichas[i].tipo == 0)
+      resultado = Min();
+  }
+  return resultado;
 }
 
