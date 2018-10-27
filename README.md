@@ -14,7 +14,7 @@ En la carpeta [TresRaya](TresRaya) esta el código del juego para dos jugadores.
 
 ## Taller de inteligencia artificial
 
-En la carpeta [TresRayaIA](TresRayaIA) esta el código con el algoritmo [minimax de John von Newman](https://es.wikipedia.org/wiki/Minimax) (1928) implementado. Los distintos commits corresponden con una implementación incremental del código para que los alumnos rezagados pudieran incorporarse.
+En la carpeta [TresRayaIA](TresRayaIA) esta el código con el algoritmo [minimax de John von Neumann](https://es.wikipedia.org/wiki/Minimax) (1928) implementado. Los distintos commits corresponden con una implementación incremental del código para que los alumnos rezagados pudieran incorporarse.
 
 ## La aplicación
 
