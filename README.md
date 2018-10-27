@@ -4,7 +4,7 @@ Este repositorio contiene la presentación y el código que usé en dos talleres
 
 - Taller de computación gráfica ([GrupoG++](https://sites.google.com/site/tallercomputaciongrafica2014/home))
 
-- Taller de inteligencia artificial ([TryIt 2014](https://www.tryit.fi.upm.es))
+- Taller de inteligencia artificial ([TryIt 2014](http://www.tryit.fi.upm.es))
 
 en los que desarrollamos el juego del `tres en raya` en modalidad dos jugadores para luego dotarle de `inteligencia artificial` y poder jugar contra la máquina o hacer que la máquina juegue contra si misma (¿Quien conoce la película [Juegos de Guerra](https://es.wikipedia.org/wiki/Juegos_de_guerra) (1987)?).
 
